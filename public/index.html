@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
     <link rel="stylesheet" href="stylesheets/style.css">
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -14,7 +16,22 @@
 <body>
     <div id="main">
         <div class="container" id="input">
+            <div class="label">Input</div>
             <img id="locate" src="images/locate.png" alt="img">
+        </div>
+        <div class="container" id="app">
+            <div class="label">My App</div>
+            <div id="output">
+                <p>Hospital Name:&nbsp;&nbsp;<span id="hospital"></span></p>
+                <p>Address:&nbsp;&nbsp;<span id="address"></span></p>
+                <p>Time:&nbsp;&nbsp;<span id="time"></span></p>
+            </div>
+        </div>
+        <div class="container" id="location">
+            <div class="label">To Hospital</div>
+            <div id="location-output">
+                <p>Patient's Location:&nbsp;&nbsp;<span id="address"></span></p>
+            </div>
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>

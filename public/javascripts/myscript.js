@@ -1,4 +1,8 @@
 var socket = io();
+var myID;
+socket.on('take id', function(data){
+    myID = data.id
+});
 function init() {
     var locate = document.getElementById("locate")
 
@@ -8,11 +12,20 @@ function init() {
                 var lat = (position.coords.latitude)
                 var long = (position.coords.longitude)
                 $.ajax({url: "/spot",
+                    method: "POST",
+                    data: {
+                        id: myID,
+                        lat: lat,
+                        long: long
+                    },
                     success: function(result){
-                        alert(result)
+                        console.log(result)
+                        $('#hospital').text(result.name);
+                        $('#address').text(result.address);
+                        $('#time').text(result.duration);
                     },
                     error: function(xhr,status,error) {
-                        alert(error)
+                        alert("Something went wrong")
                     }
                 });
             });
