@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <title>Locate Me</title>
+    <style>
+        body,html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto Condensed';
+        }
+        #container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            background: #616161;
+        }
+        h1 {
+            margin: auto;
+            color: #E0E0E0;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Sending</h1>
+    </div>
+    <script>
+$(function () {
+    if (navigator.geolocation) {
+        var url = window.location.href;
+        var id = url.substring(url.indexOf('locate/')+7,url.length-2);
+        console.log(id)
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = (position.coords.latitude)
+            var long = (position.coords.longitude)
+            $.ajax({url: "/located",
+                    method: "POST",
+                    data: {
+                        id: id,
+                        lat: lat,
+                        long: long
+                    },
+                    success: function(result){
+                        console.log(result)
+                        $("h1").text("Location Sent")
+                    },
+                    error: function(xhr,status,error) {
+                        alert("Something went wrong")
+                    }
+                });
+        })
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+});
+    </script>
+</body>
+</html>

@@ -9,6 +9,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 dotenv.load();
 
+var twilio = require('twilio');
+var client = new twilio(process.env.SID, process.env.TOKEN);
+
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -26,12 +29,29 @@ io.on('connection', function(socket){
     socket.emit('take id',{id: socket.id})
 });
 
+var googleMapsClient = require('@google/maps').createClient({
+    key: process.env.API_KEY
+});
+
+app.post('/located',(req,res) => {
+    if(!req.body.id) return res.status(400).json({success: false});
+    var arr = [];
+    arr.push(parseFloat(req.body.lat));
+    arr.push(parseFloat(req.body.long))
+    googleMapsClient.reverseGeocode({
+        latlng: arr,
+    },function(err, response) {
+        if(err) {
+            return res.status(400).send(err);
+        }
+        console.log(req.body.id)
+        io.emit('located',{location: response.json.results[0],lat: req.body.lat,long: req.body.long})
+        return res.status(200).send(response.json.results)
+    })
+});
+
 app.post('/spot',(req,res) => {
   if(!req.body.id || !req.body.lat || !req.body.long) return res.status(400).json({success: false, msg: "Insufficient data"})
-
-  var googleMapsClient = require('@google/maps').createClient({
-    key: process.env.API_KEY
-  });
 
   var arr = [];
   arr.push(parseFloat(req.body.lat));
@@ -76,6 +96,13 @@ app.post('/spot',(req,res) => {
                     }
                 })
                 console.log(min)
+                client.messages.create({
+                    body: `${process.env.DOMAIN}/locate/${req.body.id}`,
+                    to: '+917982023018',  // Text this number
+                    from: '+13344215467' // From a valid Twilio number
+                })
+                    .then((message,err) => {console.log(message.sid)})
+                    .catch(err => console.log(err));
                 return res.status(200).json({minimum: min, address: addresses[x], name: names[x], duration: text})
             });
         }
@@ -83,6 +110,8 @@ app.post('/spot',(req,res) => {
     }
   });
 });
+
+app.use('/locate/:id',express.static(path.join(__dirname, 'public/locate')))
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

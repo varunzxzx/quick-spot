@@ -3,6 +3,7 @@ body,html {
   margin: 0;
   font-family: 'Roboto Condensed', sans-serif;
   height: 100%;
+  background: #E57373;
 }
 
 #main {
@@ -88,7 +89,7 @@ p {
   box-shadow: none;
 }
 
-#hospital,#address,#time {
+#hospital,#address,#time,#location-add,#lat,#long {
   font-size: 1.1em;
   font-weight: bold;
 }

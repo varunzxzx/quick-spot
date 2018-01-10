@@ -2,7 +2,14 @@ var socket = io();
 var myID;
 socket.on('take id', function(data){
     myID = data.id
+    console.log(myID)
 });
+socket.on('located',function(data) {
+    console.log(data)
+    $("#location-add").text(data.location.formatted_address);
+    $("#lat").text(data.lat)
+    $("#long").text(data.long)
+})
 function init() {
     var locate = document.getElementById("locate")
 
