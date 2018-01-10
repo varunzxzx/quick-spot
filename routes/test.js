@@ -1,12 +1,20 @@
 var express = require('express');
-var router = express.Router();
-var request = require('ajax-request');
 
-router.get('/', function(req, ress, next) {
-    request('https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyAys8Y4v7-APq0BEfydsAh28aH-_Q5Vf6o', function(err, res, body) {
-        if(err) return res.status(400).send(err)
-        return ress.status(200).send(body)
+const test = (req,res) => {
+    var googleMapsClient = require('@google/maps').createClient({
+        key: process.env.API_KEY
     });
-});
 
-module.exports = router;
+    googleMapsClient.places({
+        location: [28.607524599999998,77.09294729999999],
+        radius: 5000,
+        type: 'hospital'
+    }, function(err, response) {
+        if (!err) {
+            console.log(response.json.results);
+        }
+        return res.status(200).send(response)
+    });
+}
+
+module.exports = test;
