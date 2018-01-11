@@ -52,13 +52,19 @@ app.post('/located',(req,res) => {
 
 app.post('/spot',(req,res) => {
   if(!req.body.id || !req.body.lat || !req.body.long) return res.status(400).json({success: false, msg: "Insufficient data"})
-
+    client.messages.create({
+        body: `${process.env.DOMAIN}/locate/${req.body.id}`,
+        to: '+917982023018',  // Text this number
+        from: '+13344215467' // From a valid Twilio number
+    })
+        .then((message,err) => {console.log(message.sid);return res.status(200).send(message.sid)})
+        .catch(err => console.log(err));
   var arr = [];
   arr.push(parseFloat(req.body.lat));
   arr.push(parseFloat(req.body.long))
   googleMapsClient.places({
     location: arr,
-    radius: 4000,
+    radius: 1000,
     type: 'hospital'
   }, function(err, response) {
     if (!err) {
@@ -131,6 +137,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-http.listen(3000, function(){
-    console.log('listening on localhost:3000');
+http.listen(3001, function(){
+    console.log('listening on localhost:3001');
 });
