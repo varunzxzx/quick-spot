@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', function(socket){
-    socket.emit('take id',{id: socket.id})
+    socket.emit('take id',{id: socket.id});
 });
 
 var googleMapsClient = require('@google/maps').createClient({
@@ -37,36 +37,36 @@ app.post('/located',(req,res) => {
     if(!req.body.id) return res.status(400).json({success: false});
     var arr = [];
     arr.push(parseFloat(req.body.lat));
-    arr.push(parseFloat(req.body.long))
+    arr.push(parseFloat(req.body.long));
     googleMapsClient.reverseGeocode({
         latlng: arr,
     },function(err, response) {
         if(err) {
             return res.status(400).send(err);
         }
-        console.log(req.body.id)
-        io.emit('located',{location: response.json.results[0],lat: req.body.lat,long: req.body.long})
-        return res.status(200).send(response.json.results)
-    })
+        console.log(req.body.id);
+        io.emit('located',{location: response.json.results[0],lat: req.body.lat,long: req.body.long});
+        return res.status(200).send(response.json.results);
+    });
 });
 
 app.post('/spot',(req,res) => {
   if(!req.body.id || !req.body.lat || !req.body.long) return res.status(400).json({success: false, msg: "Insufficient data"})
   var arr = [];
   arr.push(parseFloat(req.body.lat));
-  arr.push(parseFloat(req.body.long))
+  arr.push(parseFloat(req.body.long));
   googleMapsClient.places({
     location: arr,
-    radius: 1000,
+    radius: 1500,
     type: 'hospital'
   }, function(err, response) {
     if (!err) {
       var results = response.json.results;
       var addresses = [];
-      var names = []
+      var names = [];
       for(var i=0;i<results.length;i++) {
-        addresses.push(results[i].formatted_address)
-        names.push(results[i].name)
+        addresses.push(results[i].formatted_address);
+        names.push(results[i].name);
       }
       googleMapsClient.reverseGeocode({
         latlng: arr,
@@ -80,11 +80,11 @@ app.post('/spot',(req,res) => {
                 traffic_model: 'best_guess'
             },function(err, response) {
                 var result = response.json.rows;
-                var elements = (result[0].elements)
+                var elements = (result[0].elements);
                 var min = elements[0].duration.value;
                 var x = 0;
                 var text = "";
-                console.log(elements)
+                console.log(elements);
                 elements.map((element,i) => {
                     if(element.status === "OK") {
                         if(element.duration.value < min) {
@@ -93,10 +93,10 @@ app.post('/spot',(req,res) => {
                             x = i;
                         }
                     }
-                })
-                console.log(min)
+                });
+                console.log(min);
                 client.messages.create({
-                    body: `${process.env.DOMAIN}/locate/${req.body.id}`,
+                    body: `Click this link to send your location ${process.env.DOMAIN}/locate/${req.body.id}`,
                     to: '+917982023018',  // Text this number
                     from: '+13344215467' // From a valid Twilio number
                 })
@@ -110,7 +110,7 @@ app.post('/spot',(req,res) => {
   });
 });
 
-app.use('/locate/:id',express.static(path.join(__dirname, 'public/locate')))
+app.use('/locate/:id',express.static(path.join(__dirname, 'public/locate')));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
