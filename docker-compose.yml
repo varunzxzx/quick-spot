@@ -1,0 +1,7 @@
+version: '3'
+services:
+  web:
+    image: varunzxzx/quick-spot:latest
+    restart: always
+    ports:
+      - 80:80

@@ -130,6 +130,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-http.listen(3001, function(){
+http.listen(80, function(){
     console.log('listening on localhost:3001');
 });
