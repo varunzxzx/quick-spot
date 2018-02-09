@@ -131,5 +131,5 @@ app.use(function(err, req, res, next) {
 });
 
 http.listen(80, function(){
-    console.log('listening on localhost:3001');
+    console.log('listening on localhost:80');
 });
