@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="L-UA-Compatible" content="ie=edge">
+    <title>Quick Spot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <h1>Quick Spot</h1>
+        <hr>
+        <h4>Problem Statement</h4>
+        <p>
+            The Ambulance Call Service in India redirects the call to the hospital based on the distance between the patient and
+            and the hospital. Whichever hospital is nearest, It will redirect the call to that hospital. For e.g. If a patient calls from location <em>L</em> and there is two hospitals nearby one is 
+            <em>H<sub>A</sub></em> & <em>H<sub>B</sub></em>. It takes 5 minutes to reach <em>H<sub>A</sub></em> and 10 minutes
+            to reach <em>H<sub>B</sub></em> from location<em>L</em>.
+        </p>
+        <p>
+            Suppose, there is traffic jam between location <em>X</em> and hospital <em>H<sub>A</sub></em> which in turn increases
+            the travel time to 20 minutes. Now, the hospital with feasible travel time is <em>H<sub>B</sub></em> because the travel time is 10 minutes.
+            But, the current system will still redirect the call to <em>H<sub>A</sub></em> because it considers only the distance not the travel time.
+        </p>
+        <p>
+            Another problem is, in congested areas, the patient has to guide the ambulance. Also, If someone met with an accident 
+            on a highway. It is very hard to find the precise location of the patient.
+        </p>
+        <h4>Solution</h4>
+        <p>
+            I will create a webapp which figures out all the nearest hospital, and return the details of the hospital with feasible travel time(live).
+            After that my app will send a message to the patient and that message will contain a link. As soon as the patient clicks the link, it will automatically send
+            the precise location of the patient even the geographical coordinates to my app. My app will send this information to the ambulance which will help the ambulance 
+            to reach to the patient.
+        </p>
+    </div>
+</body>
+</html>

@@ -97,7 +97,7 @@ app.post('/spot',(req,res) => {
                 console.log(min);
                 client.messages.create({
                     body: `Click this link to send your location ${process.env.DOMAIN}/locate/${req.body.id}`,
-                    to: '+917982023018',  // Text this number
+                    to: process.env.MOBILENO,  // Text this number
                     from: '+13344215467' // From a valid Twilio number
                 })
                     .then((message,err) => {console.log(message.sid)})
