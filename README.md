@@ -22,15 +22,20 @@ git clone https://github.com/varunzxzx/quick-spot.git
 cd quick-spot
 npm install
 ```
-Create your own ```.env``` file with following keys
+**Create your own ```.env``` file with following keys**
 
 * SID - Your Twilio Account SID
 * TOKEN - Your Twilio Account Token
-* API_KEY - Your Google Maps API key
+* API_KEY - Your Google API key
 * DOMAIN - Your domain name
 * MOBILENO - Patient's mobile no. with country code
 
-Finally, ignite the server
+**Following services must be activated on your Google Maps API**
+* Google Maps Geocoding
+* Google Maps Distance Matrix API
+* Google Place API
+
+**Finally, ignite the server**
 ```
 npm start
 ```
