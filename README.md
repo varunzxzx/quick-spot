@@ -28,7 +28,7 @@ Create your own ```.env``` file with following keys
 * TOKEN - Your Twilio Account Token
 * API_KEY - Your Google Maps API key
 * DOMAIN - Your domain name
-* MOBILENO - Patient's mobile no.
+* MOBILENO - Patient's mobile no. with country code
 
 Finally, ignite the server
 ```
