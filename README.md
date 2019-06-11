@@ -1,6 +1,6 @@
 
 # Quick Spot - DigitalOcean Online Hackathon
-**Problem Statement:** http://www.mvarun.me/quick-spot/
+**Problem Statement:** https://varunzxzx.github.io/quick-spot/
 ## How It Works?
 It takes two input **i)** Location of the cell tower **ii)** Patient's mobile number, which the service center is receiving right now.
 
